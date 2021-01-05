@@ -13,18 +13,26 @@ axios({
   headers:{
     "Content-Type":"application/json;charset=utf8"
   },
+  responseType:'json',
   data:{
     a:'12',
     b:'13'
   }
+}).then(res=>{
+  console.log(res);
 });
 
-let data:FormData = new FormData();
-data.append('name','zs');
+
 axios({
   url:'/base/formpost',
   method:'post',
   headers:{
+    "Content-Type":"application/json;charset=utf8"
   },
-  data
+  data:{
+    a:'12',
+    b:'13'
+  }
+}).then(res=>{
+  console.log(res);
 });

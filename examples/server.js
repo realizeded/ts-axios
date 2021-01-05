@@ -30,8 +30,20 @@ router.get('/simple/get', function(req, res) {
   })
 })
 router.get('/base/get', function(req, res) {
-  res.json(req.query);
+  setTimeout(()=>{
+    res.json(req.query);
+  },2000);
 })
+router.get('/error/timeout', function(req, res) {
+  setTimeout(()=>{
+    res.json(req.query);
+  },5000);
+})
+router.get('/error/get', function(req, res) {
+  res.writeHead(500,{});
+  res.end('');
+})
+
 router.post('/base/post', function(req, res) {
   res.json(req.body);
 })
