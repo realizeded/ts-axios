@@ -1,11 +1,11 @@
-import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse } from './types'
-import { parseHeader } from './helper/header'
-import { createError } from './helper/error'
+import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse } from '../types'
+import { parseHeader } from '../helper/header'
+import { createError } from '../helper/error'
 export function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   return new Promise((resolve, reject) => {
     const { timeout, data = null, method = 'get', url, headers, responseType } = config
     let xhr = new XMLHttpRequest()
-    xhr.open(method, url, true)
+    xhr.open(method, url!, true)
     if (responseType) {
       xhr.responseType = responseType
     }

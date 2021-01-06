@@ -50,6 +50,20 @@ router.post('/base/post', function(req, res) {
 router.post('/base/formpost', function(req, res) {
   res.json(req.body);
 })
+regisetrExtendRouter();
+function regisetrExtendRouter() {
+  router.post('/extend/post', function(req, res) {
+    res.json(req.body);
+  });
+  router.get('/extend/get', function(req, res) {
+    res.json(req.query);
+  });
+  router.get('/extend/getUser',(req,res)=>{
+    res.json({code:200,result:{
+      name:'zs'
+    }})
+  });
+}
 app.use(router)
 const port = process.env.PORT || 8081
 module.exports = app.listen(port, () => {

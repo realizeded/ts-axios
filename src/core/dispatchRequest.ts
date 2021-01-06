@@ -1,9 +1,9 @@
-import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse } from './types/index'
-import { xhr } from './xhr'
-import { buildURL } from './helper/url'
-import { transformData, transformResponseData } from './helper/data'
-import { processHeader } from './helper/header'
-function axios(config: IAxiosRequestConfig): IAxiosPromise {
+import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse } from '../types/index'
+import { xhr } from '../core/xhr'
+import { buildURL } from '../helper/url'
+import { transformData, transformResponseData } from '../helper/data'
+import { processHeader } from '../helper/header'
+function dispatchRequest(config: IAxiosRequestConfig): IAxiosPromise {
   // TODO
   processConfig(config)
   return xhr(config).then(res => {
@@ -32,4 +32,4 @@ function transformHeaders(config: IAxiosRequestConfig): any {
   const { headers = {}, data } = config
   return processHeader(headers, data)
 }
-export default axios
+export default dispatchRequest
