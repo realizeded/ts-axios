@@ -8,3 +8,24 @@ export function isObject(val: any): val is object {
 export function isPlainObject(val: any): val is object {
   return toString.call(val) === '[object Object]'
 }
+
+export function deepMerge(...objs:any[]):any {
+  let result = Object.create(null);
+  objs.forEach(obj=>{
+    if(obj) {
+      Object.keys(obj).forEach(key=>{
+          let val = obj[key];
+          if(isPlainObject(val)) {
+            if(result[key]) {
+              result[key] = deepMerge(val,result[key]);
+            } else {
+              result[key] = deepMerge(val);
+            }
+          } else {
+            result[key] = val;
+          }
+      });
+    }
+  });
+  return result;
+}

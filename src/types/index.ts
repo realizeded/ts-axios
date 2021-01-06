@@ -19,7 +19,7 @@ export interface IAxiosRequestConfig {
   timeout?: number
 }
 
-export interface IAxiosResponse<T = any> {
+export interface IAxiosResponse<T=any> {
   data: T
   status: number
   statusText: string
@@ -28,7 +28,7 @@ export interface IAxiosResponse<T = any> {
   request: any
 }
 
-export interface IAxiosPromise<T = any> extends Promise<IAxiosResponse<T>> {}
+export interface IAxiosPromise<T=any> extends Promise<IAxiosResponse<T>> {}
 
 export interface IAxiosError extends Error {
   isAxiosError: boolean
@@ -39,36 +39,39 @@ export interface IAxiosError extends Error {
 }
 
 export interface Axios {
-  interceptor: {
-    request: AxiosInterceptorManager<IAxiosRequestConfig>
-    response: AxiosInterceptorManager<IAxiosResponse>
+  default:IAxiosRequestConfig
+  interceptor:{
+    request:AxiosInterceptorManager<IAxiosRequestConfig>
+    response:AxiosInterceptorManager<IAxiosResponse>
   }
-  request<T = any>(config: IAxiosRequestConfig): IAxiosPromise<T>
-  get<T = any>(url?: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
-  delete<T = any>(url?: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
-  head<T = any>(url?: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
-  options<T = any>(url?: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
-  post<T = any>(url?: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise<T>
-  patch<T = any>(url?: string, data?: any, config?: IAxiosRequestConfig): IAxiosPromise<T>
+  request<T=any>(config:IAxiosRequestConfig):IAxiosPromise<T>
+  get<T=any>(url?:string,config?:IAxiosRequestConfig):IAxiosPromise<T>
+  delete<T=any>(url?:string,config?:IAxiosRequestConfig):IAxiosPromise<T>
+  head<T=any>(url?:string,config?:IAxiosRequestConfig):IAxiosPromise<T>
+  options<T=any>(url?:string,config?:IAxiosRequestConfig):IAxiosPromise<T>
+  post<T=any>(url?:string,data?:any,config?:IAxiosRequestConfig):IAxiosPromise<T>
+  patch<T=any>(url?:string,data?:any,config?:IAxiosRequestConfig):IAxiosPromise<T>
+
 }
 export interface AxiosInstance extends Axios {
-  <T = any>(config: IAxiosRequestConfig): IAxiosPromise<T>
-  <T = any>(url?: string, config?: IAxiosRequestConfig): IAxiosPromise<T>
+  <T=any>(config:IAxiosRequestConfig):IAxiosPromise<T>
+  <T=any>(url?:string,config?:IAxiosRequestConfig):IAxiosPromise<T>
 }
-export function extend<T, U>(to: T, from: U): T & U {
-  for (const key in from) {
-    ;(to as T & U)[key] = from[key] as any
+export function extend<T,U>(to:T,from:U):T&U {
+  for(const key in from) {
+      (to as T&U)[key] = from[key] as any;
   }
-  return to as T & U
+  return to as T&U;
 }
 
+
 export interface AxiosInterceptorManager<T> {
-  use(resolve: ResolveFn<T>, reject?: RejectFn): number
-  eject(id: number): void
+    use(resolve:ResolveFn<T>,reject?:RejectFn):number
+    eject(id:number):void
 }
 export interface ResolveFn<T> {
-  (val: T): T | Promise<T>
-}
+    (val:T):T|Promise<T>
+} 
 export interface RejectFn {
-  (error: T): void
+  (error:T):void
 }

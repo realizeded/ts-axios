@@ -36,6 +36,7 @@ export function xhr(config: IAxiosRequestConfig): IAxiosPromise {
     xhr.ontimeout = function handleTimeout() {
       reject(createError(`time out of ${timeout} ms`, true, config, undefined, xhr, undefined))
     }
+ 
     Object.keys(headers).map(key => {
       if (key.toUpperCase() === 'Content-Type') {
         delete headers[key]

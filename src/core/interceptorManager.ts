@@ -3,7 +3,7 @@ interface Interceptor<T> {
   resolved?: ResolveFn<T>
   rejected?: RejectFn
 }
-export default class interceptorManager<T> {
+export default class InterceptorManager<T> {
   private interceptors: Array<Interceptor<T> | null>
   constructor() {
     this.interceptors = []

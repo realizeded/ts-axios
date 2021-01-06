@@ -1,4 +1,4 @@
-import { isPlainObject } from './util'
+import { isPlainObject,deepMerge} from './util'
 function normalizeHeaerName(header: any, normalizeName: string): void {
   Object.keys(header).forEach(key => {
     if (key !== normalizeName && key.toUpperCase() === normalizeName.toUpperCase()) {
@@ -37,4 +37,17 @@ export function processHeader(header: any, data: any): any {
     }
   }
   return header
+}
+
+export function flatHeader(header:any,method:Method):any {
+  if(!header) {
+    return header;
+  }
+  header = deepMerge(header.common,header['post'],header);
+  const deleteKey = ['patch','get','post','head','delete','options','common'];
+  deleteKey.forEach(key=>{
+    delete header[key];
+  });
+  return header;
+
 }
