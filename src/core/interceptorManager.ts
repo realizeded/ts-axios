@@ -8,7 +8,7 @@ export default class InterceptorManager<T> {
   constructor() {
     this.interceptors = []
   }
-  use(resolved: ResolveFn<T>, rejected?: RejectFn): T | Promise<T> {
+  use(resolved: ResolveFn<T>, rejected?: RejectFn):number {
     this.interceptors.push({ resolved, rejected })
     return this.interceptors.length - 1
   }

@@ -28,7 +28,14 @@ const starctDeepMergeKeyMap = ['headers'];
 for(let val of starctDeepMergeKeyMap) {
     stract[val] = deepMergeStart;
 }
-
+const starctMergeArrayKeyMap = ['transformRequest','transformResponse'];
+starctMergeArrayKeyMap.forEach(key=>{
+    stract[key] = starctMergeArray;
+})
+function starctMergeArray(val1:any,val2:any):any {
+    val2 = val2||[];
+    return [...val1,...val2];
+}
 function mergeConfig(config1:IAxiosRequestConfig,config2?:IAxiosRequestConfig) {
     if(!config2) {
         config2 = {};

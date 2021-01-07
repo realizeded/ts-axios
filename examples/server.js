@@ -64,6 +64,13 @@ function regisetrExtendRouter() {
     }})
   });
 }
+router.get('/reject/get',(req,res)=>{
+  setTimeout(()=>{
+    res.json({code:200,result:{
+      name:'zs'
+    }})
+  },5000);
+});
 app.use(router)
 const port = process.env.PORT || 8081
 module.exports = app.listen(port, () => {

@@ -1,14 +1,15 @@
 import dispatchRequest from './dispatchRequest'
-import { IAxiosRequestConfig, IAxiosPromise, Method, IAxiosResponse } from '../types/index'
+import {CancelToken,ResolveFn, RejectFn, IAxiosRequestConfig, IAxiosPromise, Method, IAxiosResponse} from '../types/index';
 import interceptorManager from './interceptorManager'
 import mergeConfig from './mergeConfig';
+import CancelToken from '../types/index';
 interface Interceptor {
   request: interceptorManager<IAxiosRequestConfig>
   response: interceptorManager<IAxiosResponse>
 }
 interface PromiseChain<T> {
-  resolved: ResolveFn<T> | ((resolve: dispatchRequest) => Promise<T>)
-  rejectd: RejectFn
+  resolved: ResolveFn<T> | ((resolve: typeof dispatchRequest) => Promise<T>)
+  rejected?: RejectFn
 }
 export default class Axios {
   default:IAxiosRequestConfig
@@ -37,17 +38,17 @@ export default class Axios {
       }
     ]
     this.interceptor.request.forEach(interceptor => {
-      chain.unshift(interceptor)
+      chain.unshift({resolved:interceptor.resolved!,rejected:interceptor.rejected});
     })
     this.interceptor.response.forEach(interceptor => {
-      chain.push(interceptor)
+      chain.push({resolved:interceptor.resolved!,rejected:interceptor.rejected})
     })
     let pro = Promise.resolve(config)
     while (chain.length) {
       const inter = chain.shift()
-      pro = pro.then(inter.resolved, inter.rejected)
+      pro = pro.then(inter!.resolved as (((value: IAxiosRequestConfig | undefined) => any) | null | undefined), inter!.rejected)
     }
-    return pro
+    return pro as IAxiosPromise;
   }
   get(url?: string, config?: IAxiosRequestConfig): IAxiosPromise {
     return this._requestWithoutData('get', url, config)

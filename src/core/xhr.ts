@@ -1,9 +1,10 @@
 import { IAxiosRequestConfig, IAxiosPromise, IAxiosResponse } from '../types'
 import { parseHeader } from '../helper/header'
 import { createError } from '../helper/error'
+import CancelToken from '../cancel/CancelToken';
 export function xhr(config: IAxiosRequestConfig): IAxiosPromise {
   return new Promise((resolve, reject) => {
-    const { timeout, data = null, method = 'get', url, headers, responseType } = config
+    const { cancelToken,timeout, data = null, method = 'get', url, headers, responseType } = config
     let xhr = new XMLHttpRequest()
     xhr.open(method, url!, true)
     if (responseType) {
@@ -44,6 +45,12 @@ export function xhr(config: IAxiosRequestConfig): IAxiosPromise {
         xhr.setRequestHeader(key, headers[key])
       }
     })
+    if(cancelToken) {
+      cancelToken.promise.then(result=>{
+        xhr.abort();
+        reject(result)
+      });
+    }
     xhr.send(data)
     function handleResponse(res: IAxiosResponse): void {
       if (res.status >= 200 && res.status <= 200) {

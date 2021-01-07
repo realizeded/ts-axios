@@ -1,4 +1,6 @@
 import {IAxiosRequestConfig} from '../types'
+import { transformData,transformResponseData} from '../helper/data';
+import {processHeader} from '../helper/header';
 const defaults:IAxiosRequestConfig = {
     method:'get',
     timeout:0,
@@ -6,7 +8,18 @@ const defaults:IAxiosRequestConfig = {
         common:{
             "accept":"application/json,text/plain,*/*"
         }
-    }
+    },
+    transformRequest:[
+        function(data:any,header?:any):any {
+            processHeader(header,data);
+            return transformData(data);
+        }
+    ],
+    transformResponse:[
+        function(data:any):any {
+            return transformResponseData(data);
+        }
+    ]
 };
 const methodNoData = ['get','post','head','delete','options'];
 for(let val of methodNoData) {
