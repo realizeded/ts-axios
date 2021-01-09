@@ -24,3 +24,4 @@ axios<ResponseData<User>>('/extend/getUser',{
 }).then(res=>{
   console.log(res);
 });
+

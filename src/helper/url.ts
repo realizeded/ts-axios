@@ -51,3 +51,31 @@ export function buildURL(url: string, params?: any): string {
   }
   return url
 }
+interface URLOrigin {
+  protocol:string
+  host:string
+}
+export function isURLSameOrigin(requestURL:string):boolean {
+       const parseOrigin = resolveURL(requestURL);
+       return (parseOrigin.host===parseOrigin.host)&&(parseOrigin.protocol===parseOrigin.protocol);
+}
+const urlParsingNode = document.createElement('a');
+const currentOrigin = resolveURL(window.location.href);
+function resolveURL(url:string):URLOrigin {
+      urlParsingNode.href = url;
+      const {protocol,host} = urlParsingNode;
+      return {
+        protocol,
+        host
+      } 
+}
+export function isAbsolute(url:string):boolean {
+  const reg = /^[a-z]*:\/\//i;
+  return reg.test(url);
+};
+export function combinUrl(baseURL:string,url?:string):string {
+  if(url) {
+    return baseURL.replace(/\/$/i,'')+'/'+url.replace(/^\//i,'');
+  } 
+  return baseURL;
+}

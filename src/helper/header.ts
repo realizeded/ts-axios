@@ -1,4 +1,5 @@
 import { isPlainObject,deepMerge} from './util'
+import {Method} from '../types'
 function normalizeHeaerName(header: any, normalizeName: string): void {
   Object.keys(header).forEach(key => {
     if (key !== normalizeName && key.toUpperCase() === normalizeName.toUpperCase()) {

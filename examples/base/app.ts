@@ -1,5 +1,4 @@
-import Cancel from '../../src/types/index';
-import axios ,{Cancel}from '../../src/index';
+import axios,{Cancel}from '../../src/index';
 /* const CancelToken = axios.cancelToken;
 const source = CancelToken.source();
 axios({
@@ -16,7 +15,7 @@ setTimeout(()=>{
   source.cancel('network is error');
 },1000) */
 const CancelToken = axios.cancelToken;
-let cancel:Cancel;
+let cancel:any;
 axios({
   url:"/reject/get",
   method:'get',

@@ -2,7 +2,6 @@ import dispatchRequest from './dispatchRequest'
 import {CancelToken,ResolveFn, RejectFn, IAxiosRequestConfig, IAxiosPromise, Method, IAxiosResponse} from '../types/index';
 import interceptorManager from './interceptorManager'
 import mergeConfig from './mergeConfig';
-import CancelToken from '../types/index';
 interface Interceptor {
   request: interceptorManager<IAxiosRequestConfig>
   response: interceptorManager<IAxiosResponse>

@@ -22,6 +22,13 @@ export interface IAxiosRequestConfig {
   timeout?: number
   transformRequest?:AxiosTransform|AxiosTransform[]
   transformResponse?:AxiosTransform|AxiosTransform[]
+  withCredentials?:boolean
+  xsrfCookieName?:string
+  xsrfHeaderName?:string
+  onUploadProgress?:(e:ProgressEvent)=>void
+  onDownProgress?:(e:ProgressEvent)=>void
+  validateStatus?:(state:number)=>boolean
+  baseURL?:string
   [key:string]:any
 }
 export interface AxiosTransform {

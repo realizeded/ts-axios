@@ -20,7 +20,7 @@ function processConfig(config: IAxiosRequestConfig): void {
   config.headers = transformHeaders(config) */
 
   config.data = transform(config.data,config.headers,config.transformRequest);
-  config.headers = flatHeader(config.headers,config.method);
+  config.headers = flatHeader(config.headers,config.method!);
 }
 function transformURL(config: IAxiosRequestConfig): string {
   const { params, url } = config

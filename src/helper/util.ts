@@ -8,7 +8,9 @@ export function isObject(val: any): val is object {
 export function isPlainObject(val: any): val is object {
   return toString.call(val) === '[object Object]'
 }
-
+export function isFormData(val:any):val is FormData {
+  return val instanceof FormData;
+}
 export function deepMerge(...objs:any[]):any {
   let result = Object.create(null);
   objs.forEach(obj=>{
